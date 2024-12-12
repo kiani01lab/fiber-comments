@@ -2,7 +2,7 @@
 The repo adds useful information about creating a restfull comment system in the Fiber framework.
 
 ## Features
-- Restfull API
+- Restful API
 - Dockerized
 - Using ⚡️ Fiber framework
 
