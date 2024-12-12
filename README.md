@@ -4,6 +4,6 @@ The repo adds useful information about creating a restfull comment system in the
 ## Features
 - Restfull API
 - Dockerized
-- Using :high_voltage: Fiber framework
+- Using ⚡️ Fiber framework
 
 ## Usage
