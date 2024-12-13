@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:14
+    container_name: "${APP_NAME}-database"
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    networks:
+      - restapi
+    volumes:
+      - db_pgsql:/var/lib/postgres/data
+  
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "${APP_NAME}-api"
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    depends_on:
+      - db
+    networks:
+      - restapi
+
+volumes:
+  db_pgsql:
+
+networks:
+  restapi:
+    driver: bridge
