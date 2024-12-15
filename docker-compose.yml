@@ -6,13 +6,13 @@ services:
       - "${DB_PORT:-5432}:5432"
     restart: unless-stopped
     environment:
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     networks:
       - restapi
     volumes:
-      - db_pgsql:/var/lib/postgres/data
+      - psqldb:/var/lib/postgres/data
   
   api:
     build:
@@ -27,7 +27,7 @@ services:
       - restapi
 
 volumes:
-  db_pgsql:
+  psqldb:
 
 networks:
   restapi:
