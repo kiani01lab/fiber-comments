@@ -1,18 +1,17 @@
 services:
   db:
-    image: postgres:14
-    container_name: "${APP_NAME}-database"
-    ports:
-      - "${DB_PORT:-5432}:5432"
+    container_name: ${APP_NAME}-mongo
+    image: mongo:8.0.3
     restart: unless-stopped
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - ${DB_PORT:-27017}:27017
     networks:
       - restapi
     volumes:
-      - psqldb:/var/lib/postgres/data
+      - mongodb:/data/db
   
   api:
     build:
@@ -27,7 +26,7 @@ services:
       - restapi
 
 volumes:
-  psqldb:
+  mongodb:
 
 networks:
   restapi:
