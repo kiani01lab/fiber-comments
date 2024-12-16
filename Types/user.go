@@ -3,7 +3,7 @@ package types
 import (
 	"fmt"
 	"regexp"
-	"time"
+	// "time"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
@@ -21,8 +21,8 @@ type User struct {
 	LastName  string             `bson:"last_name" json:"last_name"`
 	Email     string             `bson:"email" json:"email"`
 	Password  string             `bson:"password" json:"-"`
-	CreatedAT time.Time          `bson:"created_at" json:"created_at"`
-	UpdatedAt time.Time          `bson:"updated_at" json:"updated_at"`
+	// CreatedAT time.Time          `bson:"created_at" json:"created_at"`
+	// UpdatedAt time.Time          `bson:"updated_at" json:"updated_at"`
 }
 
 type CreateUserParams struct {
@@ -31,27 +31,28 @@ type CreateUserParams struct {
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
 	Password  string `json:"password"`
+	// CreatedAT  string `json:"password"`
 }
 
 func (params CreateUserParams) Validate() map[string]string {
 	errors := map[string]string{}
 	if len(params.FirstName) < minFirstNameLen {
-		errors["FirstName"] = fmt.Sprintf("نام حداقل باید %d کاراکتر باشد.", minFirstNameLen)
+		errors["first_name"] = fmt.Sprintf("نام حداقل باید %d کاراکتر باشد.", minFirstNameLen)
 	}
 	if len(params.LastName) < minLastNameLen {
-		errors["LastName"] = fmt.Sprintf("نام خانوادگی حداقل باید %d کاراکتر باشد.", minLastNameLen)
+		errors["last_name"] = fmt.Sprintf("نام خانوادگی حداقل باید %d کاراکتر باشد.", minLastNameLen)
 	}
 	if len(params.Password) < minPasswordLen {
-		errors["Password"] = fmt.Sprintf("رمز عبور حداقل باید %d کاراکتر باشد.", minPasswordLen)
+		errors["password"] = fmt.Sprintf("رمز عبور حداقل باید %d کاراکتر باشد.", minPasswordLen)
 	}
 	if !isEmailValid(params.Email) {
-		errors["Email"] = ("ایمیل صحیح نیست.")
+		errors["email"] = ("ایمیل صحیح نیست.")
 	}
 	return errors
 }
 
 func isEmailValid(e string) bool {
-	emailRegx := regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2-4}$`)
+	emailRegx := regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$`)
 	return emailRegx.MatchString(e)
 }
 
@@ -66,6 +67,6 @@ func NewUserFromParams(params CreateUserParams) (*User, error) {
 		LastName:  params.LastName,
 		Email:     params.Email,
 		Password:  string(encpw),
-		CreatedAT: time.Now(),
+		// CreatedAT: time.Now(),
 	}, nil
 }
