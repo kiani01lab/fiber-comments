@@ -3,7 +3,7 @@ package db
 import (
 	"context"
 
-	types "github.com/kiani01lab/fiber-comments/Types"
+	"github.com/kiani01lab/fiber-comments/types"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"

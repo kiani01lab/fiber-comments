@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"github.com/gofiber/fiber/v2"
-	types "github.com/kiani01lab/fiber-comments/Types"
 	"github.com/kiani01lab/fiber-comments/db"
+	"github.com/kiani01lab/fiber-comments/types"
 )
 
 type UserHandler struct {
