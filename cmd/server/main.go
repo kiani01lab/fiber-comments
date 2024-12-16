@@ -24,5 +24,6 @@ func main() {
 	userHandler := handlers.NewUserHandler(db.NewMongoUserStore(client))
 
 	api.Post("/user/", userHandler.HandlePostUser)
+	api.Get("/users", userHandler.HandleGetUsers)
 	app.Listen(*listenAddr)
 }
