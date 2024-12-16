@@ -3,7 +3,7 @@ package types
 import (
 	"fmt"
 	"regexp"
-	// "time"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
@@ -21,8 +21,8 @@ type User struct {
 	LastName  string             `bson:"last_name" json:"last_name"`
 	Email     string             `bson:"email" json:"email"`
 	Password  string             `bson:"password" json:"-"`
-	// CreatedAT time.Time          `bson:"created_at" json:"created_at"`
-	// UpdatedAt time.Time          `bson:"updated_at" json:"updated_at"`
+	CreatedAT time.Time          `bson:"created_at" json:"created_at"`
+	UpdatedAt time.Time          `bson:"updated_at" json:"updated_at"`
 }
 
 type CreateUserParams struct {
@@ -31,7 +31,8 @@ type CreateUserParams struct {
 	LastName  string `json:"last_name"`
 	Email     string `json:"email"`
 	Password  string `json:"password"`
-	// CreatedAT  string `json:"password"`
+	CreatedAT string `json:"created_at"`
+	UpdatedAt string `json:"updated_at"`
 }
 
 func (params CreateUserParams) Validate() map[string]string {
@@ -67,6 +68,7 @@ func NewUserFromParams(params CreateUserParams) (*User, error) {
 		LastName:  params.LastName,
 		Email:     params.Email,
 		Password:  string(encpw),
-		// CreatedAT: time.Now(),
+		CreatedAT: time.Now(),
+		UpdatedAt: time.Now(),
 	}, nil
 }
