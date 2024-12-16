@@ -2,8 +2,11 @@ package main
 
 import (
 	"flag"
+	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/kiani01lab/fiber-comments/cmd/handlers"
+	"github.com/kiani01lab/fiber-comments/db"
 )
 
 func main() {
@@ -11,5 +14,15 @@ func main() {
 	flag.Parse()
 
 	app := fiber.New()
+	api := app.Group("/api")
+
+	client, err := db.ConnectToMongo()
+	if err != nil {
+		log.Panic(err)
+	}
+
+	userHandler := handlers.NewUserHandler(db.NewMongoUserStore(client))
+
+	api.Post("/user/", userHandler.HandlePostUser)
 	app.Listen(*listenAddr)
 }
