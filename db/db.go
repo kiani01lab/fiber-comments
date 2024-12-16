@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const DBURI = "mongodb://localhost:27017"
+const DBURI = "mongodb://db:27017"
 const DBNAME = "comments"
 
 func ConnectToMongo() (*mongo.Client, error) {
