@@ -26,5 +26,6 @@ func main() {
 	api.Post("/user/", userHandler.HandlePostUser)
 	api.Get("/users", userHandler.HandleGetUsers)
 	api.Get("/user/:id", userHandler.HandleGetUser)
+	api.Delete("/user/:id", userHandler.HandleDeleteUser)
 	app.Listen(*listenAddr)
 }
