@@ -13,6 +13,7 @@ const userColl = "users"
 
 type UserStore interface {
 	GetUsers(context.Context) ([]*types.User, error)
+	GetUserById(context.Context, string) (*types.User, error)
 	InsertUser(context.Context, *types.User) (*types.User, error)
 }
 
@@ -26,6 +27,20 @@ func NewMongoUserStore(client *mongo.Client) *MongoUserStore {
 		client: client,
 		coll:   client.Database(DBNAME).Collection(userColl),
 	}
+}
+
+func (s *MongoUserStore) GetUserById(ctx context.Context, id string) (*types.User, error) {
+	oid, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, err
+	}
+
+	var user types.User
+	if err := s.coll.FindOne(ctx, bson.M{"_id": oid}).Decode(&user); err != nil {
+		return nil, err
+	}
+
+	return &user, nil
 }
 
 func (s *MongoUserStore) GetUsers(ctx context.Context) ([]*types.User, error) {
