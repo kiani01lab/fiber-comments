@@ -12,5 +12,5 @@ The repo adds useful information about creating a restful comment system in GO. 
 Follow this steps:
 ```bash
     cp .env.example .env
-    make run
+    make up
 ```
