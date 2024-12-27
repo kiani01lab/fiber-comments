@@ -12,6 +12,10 @@ import (
 const DBURI = "mongodb://db:27017"
 const DBNAME = "comments"
 
+type Store struct {
+	User UserStore
+}
+
 func ConnectToMongo() (*mongo.Client, error) {
 	clientOptions := options.Client().ApplyURI(DBURI)
 	username := os.Getenv("DB_USERNAME")
