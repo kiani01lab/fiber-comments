@@ -10,7 +10,13 @@ import (
 func SetupRoutes(app *fiber.App, client *mongo.Client) {
 	api := app.Group("/api")
 
-	userHandler := handlers.NewUserHandler(db.NewMongoUserStore(client))
+	var (
+		userStore = db.NewMongoUserStore(client)
+		store     = &db.Store{
+			User: userStore,
+		}
+		userHandler = handlers.NewUserHandler(store)
+	)
 
 	api.Post("/user/", userHandler.HandlePostUser)
 	api.Get("/users", userHandler.HandleGetUsers)
