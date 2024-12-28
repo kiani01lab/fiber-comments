@@ -7,6 +7,7 @@ The repo adds useful information about creating a restful comment system in GO. 
 - Using ⚡️ Fiber framework
 - Using MongoDB
 - JWT Authentication
+- Documented
 
 ## Usage
 Follow this steps:
