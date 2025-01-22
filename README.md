@@ -4,8 +4,8 @@ The repo adds useful information about creating a restful comment system in GO. 
 ## Features
 - Restful API
 - Dockerized
-- Using <picture> <source height="19" media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/gofiber/docs/master/static/img/logo-dark.svg"><img height="19" alt="Fiber" src="https://raw.githubusercontent.com/gofiber/docs/master/static/img/logo.svg"> </picture> framework
-- Using MongoDB
+- Using Fiber framework and MongoDB
+- CI/CD
 - JWT Authentication
 - Documented
 - Implemented the Repository Pattern
