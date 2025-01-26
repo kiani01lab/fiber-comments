@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 
+	"github.com/kiani01lab/fiber-comments/config"
 	"github.com/kiani01lab/fiber-comments/types"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -26,7 +27,7 @@ type MongoUserStore struct {
 func NewMongoUserStore(client *mongo.Client) *MongoUserStore {
 	return &MongoUserStore{
 		client: client,
-		coll:   client.Database(DBNAME).Collection(userColl),
+		coll:   client.Database(config.Config("DB_NAME")).Collection(userColl),
 	}
 }
 
