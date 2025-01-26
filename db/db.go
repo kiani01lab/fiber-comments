@@ -3,26 +3,21 @@ package db
 import (
 	"context"
 	"log"
-	"os"
 
+	"github.com/kiani01lab/fiber-comments/config"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
-
-const DBURI = "mongodb://db:27017"
-const DBNAME = "comments"
 
 type Store struct {
 	User UserStore
 }
 
 func ConnectToMongo() (*mongo.Client, error) {
-	clientOptions := options.Client().ApplyURI(DBURI)
-	username := os.Getenv("DB_USERNAME")
-	password := os.Getenv("DB_PASSWORD")
+	clientOptions := options.Client().ApplyURI(config.Config("DB_URI"))
 	clientOptions.SetAuth(options.Credential{
-		Username: username,
-		Password: password,
+		Username: config.Config("DB_USERNAME"),
+		Password: config.Config("DB_PASSWORD"),
 	})
 
 	client, err := mongo.Connect(context.TODO(), clientOptions)
