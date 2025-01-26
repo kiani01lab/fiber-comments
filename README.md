@@ -16,3 +16,12 @@ Follow this steps:
     cp .env.example .env
     make up
 ```
+#### If you don't want to use the api service on docker-compose.yml, follow this one:
+- Comment the api service in docker-compose.yml
+- Change DBURI value in the .env.example to mongodb://localhost:27017
+
+```bash
+    cp .env.example .env
+    make up
+    make run
+```
