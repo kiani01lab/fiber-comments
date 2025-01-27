@@ -17,6 +17,7 @@ func SetupRoutes(app *fiber.App, client *mongo.Client) {
 			User: userStore,
 		}
 		userHandler = handlers.NewUserHandler(store)
+		authHandler = handlers.NewAuthHandler(store)
 	)
 
 	// Swagger
@@ -27,9 +28,13 @@ func SetupRoutes(app *fiber.App, client *mongo.Client) {
 		DocExpansion: "none",
 	}))
 
+	// Auth
+	auth := api.Group("/auth")
+	auth.Post("/login", authHandler.Login)
+
+	// User
 	api.Post("/user/", userHandler.HandlePostUser)
 	api.Get("/users", userHandler.HandleGetUsers)
 	api.Get("/user/:id", userHandler.HandleGetUser)
 	api.Delete("/user/:id", userHandler.HandleDeleteUser)
-
 }
