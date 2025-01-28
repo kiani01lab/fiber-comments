@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"
 	"github.com/kiani01lab/fiber-comments/cmd/handlers"
+	"github.com/kiani01lab/fiber-comments/cmd/middleware"
 	"github.com/kiani01lab/fiber-comments/db"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -33,8 +34,9 @@ func SetupRoutes(app *fiber.App, client *mongo.Client) {
 	auth.Post("/login", authHandler.Login)
 
 	// User
-	api.Post("/user/", userHandler.HandlePostUser)
-	api.Get("/users", userHandler.HandleGetUsers)
-	api.Get("/user/:id", userHandler.HandleGetUser)
-	api.Delete("/user/:id", userHandler.HandleDeleteUser)
+	user := api.Group("/user", middleware.HandleJWT)
+	user.Post("/", userHandler.HandlePostUser)
+	user.Get("/all", userHandler.HandleGetUsers)
+	user.Get("/:id", userHandler.HandleGetUser)
+	user.Delete("/:id", userHandler.HandleDeleteUser)
 }
